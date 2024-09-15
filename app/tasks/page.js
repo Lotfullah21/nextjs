@@ -1,10 +1,11 @@
-import Component from "../component/Form.jsx";
+import Form from "../component/TaskForm.jsx";
 import Tasks from "../component/TasksList.jsx";
-
+// Make this page dynamic
+export const dynamic = "force-dynamic";
 const page = () => {
 	return (
 		<div>
-			<Component></Component>
+			<Form></Form>
 			<Tasks></Tasks>
 		</div>
 	);

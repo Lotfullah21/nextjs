@@ -1,16 +1,14 @@
-import { removeTask } from "../utils/actions";
+import { deleteTask } from "../utils/actions";
 
 const DeleteButton = ({ id }) => {
-	// create a remove function with given id
-	const removeTaskWithId = removeTask.bind(null, id);
 	return (
-		<form action={removeTaskWithId}>
-			<button
-				type="submit"
-				className="bg-red-500 text-white text-xs rounded p-2 ">
+		<form action={deleteTask}>
+			<input type="hidden" name="id" value={id} />
+			<button type="submit" className="btn btn-xs btn-error">
 				delete
 			</button>
 		</form>
 	);
 };
+
 export default DeleteButton;

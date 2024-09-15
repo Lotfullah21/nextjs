@@ -1,4 +1,10 @@
-const SinglePageDrink = (params) => {
-	return <div>SinglePageDrink</div>;
+import toast from "react-hot-toast";
+const TestComponent = () => {
+	const showToast = () => {
+		toast.success("Toast is working!");
+	};
+
+	return <button onClick={showToast}>Show Toast</button>;
 };
-export default SinglePageDrink;
+
+export default TestComponent;

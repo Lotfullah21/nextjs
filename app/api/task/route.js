@@ -1,5 +1,6 @@
-import { fetchTasks, saveTask } from "../../utils/actions";
+import { fetchTasks, createTask } from "../../utils/actions";
 import { NextResponse, NextRequest } from "next/server";
+import prisma from "../../utils/db";
 
 export const GET = async (request) => {
 	const newURL = new URL(request.url);
@@ -10,8 +11,11 @@ export const GET = async (request) => {
 };
 
 export const POST = async (request) => {
-	const task = await request.json();
-	const newTask = { ...task, id: Date.now().toString() };
-	await saveTask(newTask);
-	return Response.json({ msg: "user created" });
+	const data = await request.json();
+	const task = await prisma.task.create({
+		data: {
+			content: data.content,
+		},
+	});
+	return Response.json({ data: task });
 };

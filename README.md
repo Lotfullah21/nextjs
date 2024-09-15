@@ -446,7 +446,12 @@ export const createUser = async (formData: FormData) => {
 
 `async (formData: FormData)`: The function accepts a FormData object, which contains form data submitted from a client.
 
-`formData`: This is a variable or parameter name that refers to the instance of FormData in the function.
+`formData`: This is a variable or parameter name that refers to the instance of FormData in the function and when the function as the action value for the form, it automatically carries the data that is submitted by user.
+In fact formData is a web api provided by js.
+
+```js
+export const createTask = async(prevState, formData);
+```
 
 `FormData`: This is a browser-provided class that represents form data and provides methods to work with it.
 
@@ -636,7 +641,7 @@ It gives information about status of our action, one of them.
 
 useFormState and useFormStatus are hooks from the react-dom library. These hooks provide useful information about the current state of a form (e.g., whether it's pending submission or already submitted).
 
-useFormStatus can only be used inside a component.
+useFormStatus can only be used inside a component and it gives information about status of last form submission.
 
 ```ts
 interface FormStatusNotPending {
@@ -753,6 +758,162 @@ const removeUserWithId = removeUser.bind(null, id);
 
 removeUser.bind(null, id) creates a new function (removeUserWithId) where id is automatically passed as the first argument to removeUser. null is used as the this context, which is not needed here.
 
+# Prisma
+
+```ssh
+npm install prisma --save-dev
+npm install @prisma/client
+```
+
+```ssh
+npx prism init
+```
+
+```ssh
+<!-- To migrate the changes. -->
+npx prisma migrate dev
+<!-- To initiate the prisma library -->
+npx prisma studio
+```
+
+Prisma is an open-source database toolkit designed to make easy database interactions and development. It provides a modern and intuitive way to work with databases, offering a range of tools and features to improve developer productivity.
+
+### Prisma Client:
+
+An auto-generated query builder for TypeScript and Node.js. It provides a type-safe API for querying and manipulating your database, making it easier to work with data and reducing the risk of runtime errors.
+
+### Prisma Migrate:
+
+A migration tool that helps you manage and apply changes to your database schema. It allows you to define and version control your schema changes using a declarative syntax and provides commands to apply these changes to your database.
+
+### Prisma Studio:
+
+A web-based GUI for exploring and managing your data. It provides a user-friendly interface for viewing, editing, and managing the records in your database.
+
+### Prisma Schema:
+
+A declarative schema definition language that allows you to define your data models and relationships in a single file. The Prisma schema file is used by Prisma to generate the client and manage database migrations.
+
+Prisma Data Platform: A cloud-based platform offering additional features, such as monitoring, insights, and collaboration tools, to enhance the development and management of your database.
+
+creating a model, a model is basically the blue print of our data.
+
+```ssh
+
+model Task  {
+id String @id @default(uuid())
+content String
+createdAt DateTime @default(now())
+completer Boolean @default(false)
+}
+
+
+```
+
+After creating the model use the given command to track the changes locally.
+
+```ssh
+npx prisma migrate dev
+```
+
+## Prisma CRUD operation
+
+### 1. Create
+
+```js
+await prisma.task.create({
+	data: {
+		content: "some task",
+	},
+});
+```
+
+### 2. Read
+
+```js
+const allTasks = await prisma.task.findMany({});
+// If some format you want
+const allTasks = await prisma.task.findMany({
+	orderBy: {
+		createdAt: "desc",
+	},
+});
+return allTasks;
+```
+
+```js
+// Getting unique data
+const uniqueData = await prisma.task.findUnique({
+	where: {
+		task: "finish",
+	},
+});
+```
+
+### 3. Update
+
+```js
+const updateTask = await prisma.task.update({
+	// Grab the item
+	where: {
+		id: id,
+	},
+	// What to update
+	data: {
+		content: "finish in an hour",
+	},
+});
+```
+
+### 4. Delete
+
+```js
+const deleteTask = await prisma.task.delete({
+	where: { id: id },
+});
+```
+
+```jsx
+<input type="hidden" value={id} name="id"></input>
+```
+
+We are passing the id value through a hidden input and there is no input from the user, directly we pass the value from props.
+
+## Error
+
+`warn(prisma-client) There are already 10 instances of Prisma Client actively running.`
+Use this code to avoid the above error.
+
+```ts
+import { PrismaClient } from "@prisma/client";
+
+const prismaClientSingleton = () => {
+	return new PrismaClient();
+};
+
+declare const globalThis: {
+	prismaGlobal: ReturnType<typeof prismaClientSingleton>;
+} & typeof global;
+
+const prisma = globalThis.prismaGlobal ?? prismaClientSingleton();
+
+export default prisma;
+
+if (process.env.NODE_ENV !== "production") globalThis.prismaGlobal = prisma;
+```
+
+`why save-dev`:the --save-dev flag is used to specify that the package should be added to the devDependencies section of package.json file. This means the package is only needed for development and not in production.
+
+`npm install prisma --save-dev`: This command installs the Prisma CLI as a development dependency. The Prisma CLI is used to manage database schema, migrations, and other development tasks. Since you only need the Prisma CLI during development and not in production, it’s added to devDependencies.
+
+## Prisma Model
+
+### Notifications
+
+```
+ npm install react-hot-toast
+```
+
 ## Route Handlers
 
 In Next.js, route handlers are essential for managing requests and responses in your application. They allow you to define server-side logic and handle different HTTP methods (GET, POST, PUT, DELETE, etc.) for specific routes.
@@ -771,7 +932,7 @@ pages/
 
 ### App Router (Next.js 13+)
 
-With the App Router introduced in Next.js 13, you handle routes using the new app directory. This approach integrates API routes directly into the routing structure, using files such as page.tsx, layout.tsx, and route.ts.
+With the App Router introduced in Next.js 13, we handle routes using the new app directory. This approach integrates API routes directly into the routing structure, using files such as page.tsx, layout.tsx, and route.ts.
 
 Create a route file in the app directory. For example
 
@@ -783,7 +944,7 @@ app/
 
 ```
 
-In app/api/user/route.ts, you can define your request handlers using async functions
+In app/api/user/route.ts, you can define your request handlers using async functions.
 
 ### Traditional API Routes:
 
@@ -801,13 +962,14 @@ Defined in the app directory using route.ts or route.js. Offers a more integrate
 
 The request object, which provides information about the incoming request and by default we are having access to it.
 
+`405`: If a particular route is not handled.
+
 ### Response:
 
 The response object, which allows you to create a new response to send back to the client.
 
 ```ts
 import { fetchUsers, saveUser } from "@/app/utils/actions";
-
 export const GET = async (request: Request) => {
 	const { searchParams } = new URL(request.url);
 	const id = searchParams.get("id");
@@ -824,7 +986,6 @@ almost same as request and response, but they are coming from next.js with more 
 ```tsx
 import { fetchUsers, saveUser } from "@/app/utils/actions";
 import { NextRequest, NextResponse } from "next/server";
-
 export const GET = async (request: NextRequest) => {
 	console.log(request.url);
 	const id = request.nextUrl.searchParams.get("id");
@@ -878,7 +1039,6 @@ export default function king() {
 	console.log("Hello from middleware");
 	return Response.json({ msg: "Hello from middleware" });
 }
-
 export const config = {
 	matcher: "/middle",
 };
@@ -900,4 +1060,19 @@ export const config = {
 	// It will be called for all the routes inside about and tours.
 	matcher: ["/about/:path*", "/tours/:path*"],
 };
+```
+
+## Building Locally
+
+#### Setup
+
+```json
+"build":"npx prisma generate && next build"
+```
+
+```ssh
+<!-- To build it locally -->
+npm run build
+<!-- to start the app locally -->
+npm start
 ```

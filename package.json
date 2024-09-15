@@ -4,20 +4,26 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
-		"build": "next build",
+		"build": "npx prisma generate && next build",
 		"start": "next start",
 		"lint": "next lint"
 	},
 	"dependencies": {
+		"@prisma/client": "^5.19.1",
 		"@tailwindcss/typography": "github:tailwindcss/typography",
 		"next": "14.2.11",
 		"react": "^18",
-		"react-dom": "^18"
+		"react-dom": "^18",
+		"react-hot-toast": "^2.4.1",
+		"zod": "^3.23.8"
 	},
 	"devDependencies": {
 		"@types/node": "^22.5.4",
+		"@types/react": "18.3.5",
 		"daisyui": "^4.12.10",
 		"postcss": "^8",
-		"tailwindcss": "^3.4.1"
+		"prisma": "^5.19.1",
+		"tailwindcss": "^3.4.1",
+		"typescript": "5.6.2"
 	}
 }

@@ -13,9 +13,7 @@ const Navbar = () => {
 				<Link className="capitalize" href="/prisma">
 					prisma
 				</Link>
-				<Link className="capitalize" href="/query">
-					query
-				</Link>
+
 				<Link className="capitalize" href="/client">
 					client
 				</Link>

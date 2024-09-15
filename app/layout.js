@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Inconsolata } from "next/font/google";
 import Navbar from "./component/Navbar";
+import Providers from "./providers";
 
 // Importing Google Font with a Latin subset
 const inconsolata = Inconsolata({ subsets: ["latin"] });
@@ -15,12 +16,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
-			{/* Applying the imported font to the entire body */}
 			<body className={inconsolata.className}>
-				{/* Rendering the Navbar component */}
 				<Navbar />
-				{/* Main content area with a max width for the layout */}
-				<main className="mx-auto max-w-6xl px-8 py-20">{children}</main>
+				<main className="mx-auto max-w-6xl px-8 py-20">
+					<Providers>{children}</Providers>
+				</main>
 			</body>
 		</html>
 	);

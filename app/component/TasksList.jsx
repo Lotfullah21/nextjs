@@ -1,27 +1,34 @@
-import { constants } from "buffer";
+import prisma from "../utils/db";
 import { fetchTasks } from "../utils/actions";
 import DeleteButton from "./deleteButton";
+import Link from "next/link";
+import Test from "./SinglePageDrink";
 const Tasks = async () => {
 	const tasks = await fetchTasks();
 	return (
-		<div className="grid mt-8">
+		<div className="grid mt-8 max-w-xl">
 			{tasks.length ? (
 				<div>
 					{tasks.map((task) => {
 						return (
 							<div
 								key={task.id}
-								className="grid sm:grid-cols-2 items-center  justify-between shadow-md p-2">
-								<div className="grid sm:grid-cols-2">
-									{" "}
-									<h2 className="text-2xl capitalize flex flex-cols-2 mt-2 gap-x-8 items-center justify-between">
-										{task.task}
-									</h2>
-									<span className="text-2xl capitalize flex flex-cols-2 mt-2 gap-x-8 items-center justify-between">
-										{task.due}
-									</span>
+								className="flex justify-between items-center px-6 py-4 mb-2 border border-base-200 rounded-lg shadow">
+								<h2
+									className={`text-lg capitalize ${
+										task.completed ? "line-through" : null
+									}`}>
+									{task.content}
+								</h2>
+
+								<div className="flex gap-6 items-center">
+									<Link
+										href={`/tasks/${task.id}`}
+										className="btn btn-accent btn-xs">
+										edit item
+									</Link>
+									<DeleteButton id={task.id}></DeleteButton>
 								</div>
-								<DeleteButton id={task.id}></DeleteButton>
 							</div>
 						);
 					})}
@@ -32,4 +39,7 @@ const Tasks = async () => {
 		</div>
 	);
 };
+
+import toast from "react-hot-toast";
+
 export default Tasks;
