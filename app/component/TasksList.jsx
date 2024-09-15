@@ -1,8 +1,6 @@
-import prisma from "../utils/db";
 import { fetchTasks } from "../utils/actions";
-import DeleteButton from "./deleteButton";
+import DeleteButton from "./DeleteButton";
 import Link from "next/link";
-import Test from "./SinglePageDrink";
 const Tasks = async () => {
 	const tasks = await fetchTasks();
 	return (

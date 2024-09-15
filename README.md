@@ -1076,3 +1076,21 @@ npm run build
 <!-- to start the app locally -->
 npm start
 ```
+
+```git
+<!-- To remove the git repo if there is any. -->
+rm -rf .git
+```
+
+## Crucial
+
+just because of importing a button from `DeleteButton` inside `TasksList` like this
+
+```jsx
+// wrong one
+import DeleteButton from "./deleteButton";
+// correct one
+import DeleteButton from "./DeleteButton";
+```
+
+even though the button was rendered, but I was not able to delete the task, it took hours still could not figure out what was wrong, even I was not getting the wrong imports and realized when I deployed the application.

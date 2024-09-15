@@ -55,11 +55,11 @@ export const fetchTasks = async () => {
 };
 
 export const deleteTask = async (formData) => {
-	// const id = formData;
-	// await prisma.task.delete({
-	// 	where: { id },
-	// });
-	// revalidatePath("/tasks");
+	const id = formData.get("id");
+	await prisma.task.delete({
+		where: { id },
+	});
+	revalidatePath("/tasks");
 };
 
 export const getTask = async (id) => {
