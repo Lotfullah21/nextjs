@@ -4,6 +4,8 @@ npx create-next-app@latest app-name
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+[App](https://vercel.com/lotfullahs-projects/nextjs-5zve/Dhqng52UTxbrygDKQ3KDUFjdUkQv)
+
 ## folder structure
 
 1. app: all the files lives inside app folder
