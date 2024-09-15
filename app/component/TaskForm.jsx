@@ -21,14 +21,14 @@ const Form = () => {
 	}, [state.message]);
 	return (
 		<>
-			<form action={formAction}>
+			<form action={formAction} className="w-full max-w-lg">
 				{/* {state.message && <p className="mb-4">{state.message}</p>} */}
-				<div className="w-full join max-w-lg">
+				<div className="w-full join flex justify-between">
 					<input
 						type="text"
 						name="task"
 						placeholder="task"
-						className="input input-bordered join-item w-ful"
+						className="input input-bordered w-full join-item"
 						required></input>
 					<SubmitButton></SubmitButton>
 				</div>

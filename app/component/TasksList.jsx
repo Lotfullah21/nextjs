@@ -20,11 +20,13 @@ const Tasks = async () => {
 								</h2>
 
 								<div className="flex gap-6 items-center">
+									{/* edit button */}
 									<Link
 										href={`/tasks/${task.id}`}
 										className="btn btn-accent btn-xs">
 										edit item
 									</Link>
+									{/* delete button */}
 									<DeleteButton id={task.id}></DeleteButton>
 								</div>
 							</div>
@@ -37,7 +39,5 @@ const Tasks = async () => {
 		</div>
 	);
 };
-
-import toast from "react-hot-toast";
 
 export default Tasks;

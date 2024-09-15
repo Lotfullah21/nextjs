@@ -10,15 +10,12 @@ const Navbar = () => {
 				<Link className="capitalize" href="/tasks">
 					tasks
 				</Link>
-				<Link className="capitalize" href="/prisma">
-					prisma
-				</Link>
 
-				<Link className="capitalize" href="/client">
-					client
-				</Link>
 				<Link className="capitalize" href="/drinks">
 					coffee drinks
+				</Link>
+				<Link className="capitalize" href="/prisma">
+					prisma
 				</Link>
 			</div>
 		</nav>

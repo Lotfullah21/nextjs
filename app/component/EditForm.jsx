@@ -4,14 +4,14 @@ const EditForm = ({ task }) => {
 	return (
 		<form
 			action={editTask}
-			className="w-full max-w-lg p-12 border-base-300 rounded-md">
+			className="w-full max-w-lg p-12 border-red-300 rounded-lg bg-slate-100">
 			<input type="hidden" name="id" value={id}></input>
 			<input
 				type="text"
 				name="task"
 				defaultValue={content}
 				required
-				className="input input-bordered w-full "></input>
+				className="input input-bordered w-full"></input>
 			<div className="form-control my-4">
 				<label htmlFor="completed" className="label cursor-pointer">
 					<span className="label-text">completed</span>
